@@ -154,12 +154,15 @@ const App = {
      橫向（非手機）→ spread （攤開雙頁，封面單頁置中）        */
   _applyDeviceMode() {
     const w = window.innerWidth, h = window.innerHeight;
-    const short = Math.min(w, h);
+    const longSide = Math.max(w, h);
     const coarse = window.matchMedia('(pointer: coarse)').matches;
     const landscape = w > h;
 
+    // 手機：觸控裝置且整體尺寸接近手機（長邊 < 980，平板長邊普遍 ≥ 1024）
+    // 平板：觸控但較大 → 橫式雙頁、直式單頁，跟電腦一樣
+    // 電腦：非觸控 → 橫式雙頁、直式/窄視窗單頁
     let mode;
-    if (short < 600) mode = 'mobile';
+    if (coarse && longSide < 980) mode = 'mobile';
     else if (coarse) mode = 'tablet';
     else mode = 'desktop';
 
