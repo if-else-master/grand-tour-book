@@ -1,0 +1,6 @@
+# 本機文件，不上傳到 GitHub
+編輯教學.local.md
+*.local.md
+
+# 系統檔
+.DS_Store
