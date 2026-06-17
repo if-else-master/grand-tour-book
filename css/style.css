@@ -144,7 +144,7 @@ figure.img-shadow img, figure.img-round img { border-radius: 12px; }
 .cover-top { text-align: center; }
 .cover-kicker { letter-spacing: .5em; font-size: .8rem; opacity: .8; text-transform: uppercase; }
 .cover-title {
-  font-size: clamp(3rem, 13vw, 6rem);
+  font-size: clamp(1.8rem, 7.5vw, 3.6rem);
   margin: .25em 0 .15em; font-weight: 700;
   letter-spacing: .12em; line-height: 1;
   text-shadow: 0 4px 24px rgba(0,0,0,.5);
