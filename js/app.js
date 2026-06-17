@@ -32,7 +32,7 @@ const App = {
     // 2. 建立翻頁引擎
     this.flip = new FlipBook({
       bookEl, stageEl,
-      onChange: (i, total) => this._onPageChange(i, total)
+      onChange: (info) => this._onPageChange(info)
     });
 
     // 3. 組頁面：封面 → 內文 → 留言頁
@@ -148,26 +148,33 @@ const App = {
     box.appendChild(s);
   },
 
-  /* ---------- 裝置模式 ---------- */
+  /* ---------- 裝置 / 版面判斷 ----------
+     手機         → slide  （上下滑動，單頁）
+     直向（非手機）→ flip   （橫向翻書，單頁）
+     橫向（非手機）→ spread （攤開雙頁，封面單頁置中）        */
   _applyDeviceMode() {
     const w = window.innerWidth, h = window.innerHeight;
     const short = Math.min(w, h);
     const coarse = window.matchMedia('(pointer: coarse)').matches;
+    const landscape = w > h;
+
     let mode;
     if (short < 600) mode = 'mobile';
     else if (coarse) mode = 'tablet';
     else mode = 'desktop';
 
+    let layout;
+    if (mode === 'mobile') layout = 'slide';
+    else if (landscape) layout = 'spread';
+    else layout = 'flip';
+
     const appEl = document.getElementById('app');
     appEl.dataset.mode = mode;
-    appEl.dataset.orient = w > h ? 'landscape' : 'portrait';
+    appEl.dataset.orient = landscape ? 'landscape' : 'portrait';
 
-    const flipMode = (mode === 'mobile') ? 'slide' : 'flip';
-    if (this.flip && this.flip.mode !== flipMode) this.flip.setMode(flipMode);
-    else if (this.flip && !this.flip.book.classList.contains('mode-flip') && !this.flip.book.classList.contains('mode-slide')) {
-      this.flip.setMode(flipMode);
-    }
+    if (this.flip) this.flip.setLayout(layout);
     this._deviceMode = mode;
+    this._layout = layout;
   },
 
   /* ---------- 導覽 ---------- */
@@ -176,14 +183,15 @@ const App = {
     document.getElementById('btnNext').addEventListener('click', () => this.flip.next());
   },
 
-  _onPageChange(i, total) {
-    document.getElementById('pageNum').textContent = i + 1;
-    document.getElementById('pageTotal').textContent = total;
-    document.getElementById('btnPrev').disabled = this.flip.atFirst;
-    document.getElementById('btnNext').disabled = this.flip.atLast;
-    // 翻到留言頁才載入 giscus
-    const page = this.flip.pages[i];
-    if (page && page.dataset.comments) this._loadGiscus();
+  _onPageChange(info) {
+    document.getElementById('pager').textContent = info.label;
+    document.getElementById('btnPrev').disabled = info.atFirst;
+    document.getElementById('btnNext').disabled = info.atLast;
+    // 任一可見頁是留言頁時載入 giscus
+    info.visible.forEach(i => {
+      const page = this.flip.pages[i];
+      if (page && page.dataset.comments) this._loadGiscus();
+    });
   },
 
   _bindTocLinks(bookEl) {
@@ -203,9 +211,9 @@ const App = {
     const seen = localStorage.getItem('book_guide_seen');
     if (seen) return;
 
-    const isMobile = this._deviceMode === 'mobile';
-    guide.classList.add(isMobile ? 'swipe-v' : 'swipe-h');
-    txt.textContent = isMobile ? '上下滑動翻頁' : '左右滑動（或滾動）翻頁';
+    const isVertical = this._layout === 'slide';
+    guide.classList.add(isVertical ? 'swipe-v' : 'swipe-h');
+    txt.textContent = isVertical ? '上下滑動翻頁' : '左右滑動（或滾動）翻頁';
     guide.hidden = false;
 
     const close = () => {

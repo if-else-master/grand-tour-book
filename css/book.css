@@ -13,20 +13,25 @@
   box-shadow: var(--shadow);
 }
 
-/* ---- 書本尺寸（電腦 / 平板直式：單頁書頁比例） ---- */
-.app[data-mode="desktop"] .book,
-.app[data-mode="tablet"]  .book {
+/* ---- 書本尺寸（依版面 data-layout） ---- */
+/* 單頁翻書（直式平板 / 窄視窗）：單頁書頁比例 */
+.app[data-layout="flip"] .book {
   height: min(90vh, 92vw * 1.4);
   width: min(64vh, 92vw);            /* 約 0.71 書頁比 */
   aspect-ratio: 5 / 7;
 }
-/* 平板橫式：書本加寬 */
-.app[data-mode="tablet"][data-orient="landscape"] .book {
-  height: 86vh;
-  width: min(62vh, 88vw);
+/* 雙頁攤開（電腦 / 橫式平板）：兩頁並排，整體 10:7 */
+.app[data-layout="spread"] .book {
+  width: min(94vw, 128vh);
+  aspect-ratio: 10 / 7;
+  max-height: 92vh;
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, .5));
+  transition: transform .7s cubic-bezier(.3,.1,.2,1);
 }
-/* 手機：滿版 */
-.app[data-mode="mobile"] .book {
+/* 手機：滿版滑動 */
+.app[data-layout="slide"] .book {
   width: 100vw;
   height: 100vh;
   border-radius: 0;
@@ -59,8 +64,7 @@
 /* ============================================================
    橫向翻書動畫 (flip)
    ============================================================ */
-.app[data-mode="desktop"] .book,
-.app[data-mode="tablet"]  .book { perspective: 2200px; }
+.app[data-layout="flip"] .book { perspective: 2200px; }
 
 .mode-flip .page {
   transform-origin: left center;
@@ -105,3 +109,57 @@
 .mode-slide .page.is-next   { transform: translateY(100%);  z-index: 10; }
 .mode-slide .page.is-prev   { transform: translateY(-100%); z-index: 10; }
 .mode-slide .page.dragging  { transition: none !important; }
+
+/* ============================================================
+   雙頁攤開 (spread) — 電腦 / 橫式平板
+   ============================================================ */
+.book.layout-spread {
+  perspective: 2800px;
+  transform-style: preserve-3d;
+}
+/* 封面視圖：書本左移，讓右側單頁置中 */
+.app[data-layout="spread"].at-cover .book { transform: translateX(-25%); }
+
+/* 左右頁槽 */
+.layout-spread .spread-slot {
+  position: absolute; top: 0; height: 100%; width: 50%;
+  overflow: hidden; background: var(--paper);
+  border-radius: 2px;
+}
+.layout-spread .slot-left  { left: 0;  border-radius: 6px 2px 2px 6px;
+  box-shadow: inset -22px 0 34px -22px rgba(0,0,0,.4); }
+.layout-spread .slot-right { right: 0; border-radius: 2px 6px 6px 2px;
+  box-shadow: inset 22px 0 34px -22px rgba(0,0,0,.4); }
+/* 封面視圖：藏起左頁，右頁就是單頁封面 */
+.layout-spread.cover-view .slot-left { display: none; }
+.layout-spread.cover-view .slot-right { box-shadow: none; border-radius: 6px; }
+
+/* 頁面塞進頁槽 / 書葉面時填滿 */
+.layout-spread .page.in-slot {
+  position: absolute; inset: 0; display: block !important;
+}
+
+/* 翻動的書葉（佔右半邊，繞書脊旋轉） */
+.flip-leaf {
+  position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  z-index: 30;
+  transition: transform .72s cubic-bezier(.3,.1,.2,1);
+  transform: rotateY(0deg);
+}
+.flip-leaf.to-left { transform: rotateY(-179.9deg); }
+.flip-leaf .flip-face {
+  position: absolute; inset: 0; overflow: hidden;
+  background: var(--paper);
+  backface-visibility: hidden;
+  border-radius: 2px 6px 6px 2px;
+}
+.flip-leaf .flip-face.face-back { transform: rotateY(180deg); border-radius: 6px 2px 2px 6px; }
+.flip-leaf .page.in-slot { position: absolute; inset: 0; display: block !important; }
+/* 翻頁受光陰影 */
+.flip-leaf::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,0) 45%);
+  opacity: .9;
+}
