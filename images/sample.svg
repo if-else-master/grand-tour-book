@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="範例圖片">
+  <rect width="400" height="300" fill="#e8dcc2"/>
+  <path d="M0 230 L110 150 L190 210 L280 130 L400 220 L400 300 L0 300 Z" fill="#b9956a"/>
+  <path d="M0 260 L130 200 L240 250 L340 195 L400 240 L400 300 L0 300 Z" fill="#8a6c46"/>
+  <circle cx="310" cy="80" r="42" fill="#c9a44c"/>
+  <text x="200" y="160" font-family="sans-serif" font-size="20" fill="#5a4a2f" text-anchor="middle" opacity="0.7">範例圖片 / sample</text>
+</svg>

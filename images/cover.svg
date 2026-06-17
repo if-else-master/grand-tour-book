@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="封面插圖">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b3a5b"/>
+      <stop offset="0.6" stop-color="#3d6488"/>
+      <stop offset="1" stop-color="#c9a44c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#sky)"/>
+  <circle cx="300" cy="300" r="90" fill="#f4ead5" opacity="0.92"/>
+  <path d="M0 620 L150 500 L260 590 L400 460 L520 560 L600 510 L600 800 L0 800 Z" fill="#0f2237" opacity="0.85"/>
+  <path d="M0 690 L180 600 L320 680 L460 590 L600 660 L600 800 L0 800 Z" fill="#0a1726"/>
+  <g opacity="0.85" fill="#f4ead5">
+    <circle cx="120" cy="140" r="2.5"/><circle cx="200" cy="90" r="1.8"/>
+    <circle cx="470" cy="120" r="2.2"/><circle cx="520" cy="200" r="1.6"/>
+    <circle cx="80" cy="240" r="1.6"/><circle cx="420" cy="60" r="1.8"/>
+  </g>
+</svg>

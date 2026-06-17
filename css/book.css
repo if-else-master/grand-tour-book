@@ -1,0 +1,107 @@
+/* ============================================================
+   翻頁引擎樣式
+   兩種模式：
+     data-mode="desktop" / "tablet" → 橫向翻書動畫 (flip)
+     data-mode="mobile"             → 縱向滑動翻頁 (slide)
+   ============================================================ */
+
+.book {
+  position: relative;
+  transform-style: preserve-3d;
+  background: var(--paper);
+  border-radius: 4px 8px 8px 4px;
+  box-shadow: var(--shadow);
+}
+
+/* ---- 書本尺寸（電腦 / 平板直式：單頁書頁比例） ---- */
+.app[data-mode="desktop"] .book,
+.app[data-mode="tablet"]  .book {
+  height: min(90vh, 92vw * 1.4);
+  width: min(64vh, 92vw);            /* 約 0.71 書頁比 */
+  aspect-ratio: 5 / 7;
+}
+/* 平板橫式：書本加寬 */
+.app[data-mode="tablet"][data-orient="landscape"] .book {
+  height: 86vh;
+  width: min(62vh, 88vw);
+}
+/* 手機：滿版 */
+.app[data-mode="mobile"] .book {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---- 頁面共用 ---- */
+.page {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  overflow: hidden;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+/* 書頁紙張質感（內文頁，非封面） */
+.page:not(.is-cover) {
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.05) 0, rgba(0,0,0,0) 6%),
+    var(--paper);
+}
+
+/* 預設只顯示目前頁，其餘隱藏（由 JS 控制 .is-active / 相鄰頁） */
+.page { display: none; }
+.page.is-active,
+.page.is-prev,
+.page.is-next,
+.page.is-flipping { display: block; }
+
+/* ============================================================
+   橫向翻書動畫 (flip)
+   ============================================================ */
+.app[data-mode="desktop"] .book,
+.app[data-mode="tablet"]  .book { perspective: 2200px; }
+
+.mode-flip .page {
+  transform-origin: left center;
+  transition: transform .62s cubic-bezier(.3,.1,.2,1), box-shadow .62s;
+}
+.mode-flip .page.is-active { transform: rotateY(0deg); z-index: 20; }
+.mode-flip .page.is-next   { transform: rotateY(0deg); z-index: 10; }  /* 躺在底下，等著被翻到 */
+.mode-flip .page.is-prev   { transform: rotateY(-180deg); z-index: 10; }
+
+/* 正在向前翻：目前頁往左翻走 */
+.mode-flip .page.is-flipping.flip-forward {
+  transform: rotateY(-178deg);
+  z-index: 30;
+  box-shadow: 0 0 60px rgba(0,0,0,.4);
+}
+/* 正在向後翻：上一頁翻回來 */
+.mode-flip .page.is-flipping.flip-back {
+  transform: rotateY(0deg);
+  z-index: 30;
+  box-shadow: 0 0 60px rgba(0,0,0,.4);
+}
+
+/* 翻頁時的明暗漸層（模擬紙張受光） */
+.mode-flip .page::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.18), rgba(0,0,0,0) 30%);
+  opacity: 0; transition: opacity .62s; pointer-events: none;
+}
+.mode-flip .page.is-flipping::after { opacity: 1; }
+
+/* 跟著手指拖動（即時，無 transition） */
+.mode-flip .page.dragging { transition: none !important; }
+
+/* ============================================================
+   縱向滑動翻頁 (slide) — 手機
+   ============================================================ */
+.mode-slide .page {
+  transition: transform .45s cubic-bezier(.25,.6,.25,1);
+}
+.mode-slide .page.is-active { transform: translateY(0); z-index: 20; }
+.mode-slide .page.is-next   { transform: translateY(100%);  z-index: 10; }
+.mode-slide .page.is-prev   { transform: translateY(-100%); z-index: 10; }
+.mode-slide .page.dragging  { transition: none !important; }

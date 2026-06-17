@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="一本可翻頁的線上書籍">
+  <title>壯遊</title>
+  <link rel="icon" href="images/cover.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/book.css">
+  <!-- Markdown 渲染：marked -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+</head>
+<body>
+  <div id="app" class="app loading" data-mode="desktop">
+
+    <!-- 書本舞台 -->
+    <main class="stage" id="stage">
+      <div class="book" id="book" aria-live="polite">
+        <!-- 頁面由 JS 動態產生 -->
+      </div>
+    </main>
+
+    <!-- 翻頁按鈕（永遠保留） -->
+    <button class="nav-btn nav-prev" id="btnPrev" aria-label="上一頁">
+      <svg viewBox="0 0 24 24" width="26" height="26"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="nav-btn nav-next" id="btnNext" aria-label="下一頁">
+      <svg viewBox="0 0 24 24" width="26" height="26"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <!-- 頁碼 / 進度 -->
+    <div class="pager" id="pager"><span id="pageNum">1</span> / <span id="pageTotal">1</span></div>
+
+    <!-- 引導動畫 -->
+    <div class="guide" id="guide" hidden>
+      <div class="guide-card">
+        <div class="guide-hand" id="guideHand">
+          <svg viewBox="0 0 64 64" width="56" height="56"><path d="M32 4v40M32 4l-10 10M32 4l10 10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="guide-text" id="guideText">滑動即可翻頁</p>
+        <button class="guide-close" id="guideClose">開始閱讀</button>
+      </div>
+    </div>
+
+    <!-- 載入中 -->
+    <div class="splash" id="splash"><div class="splash-spin"></div></div>
+  </div>
+
+  <script src="js/flipbook.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

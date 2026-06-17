@@ -1,0 +1,24 @@
+{
+  "title": "壯遊",
+  "subtitle": "一場關於成長與遠方的旅程",
+  "author": "Ray Chang",
+  "publisher": "Grand Tour Press",
+  "year": "2026",
+  "cover": {
+    "image": "images/cover.svg",
+    "bgColor": "#16263f",
+    "textColor": "#f4ead5",
+    "accentColor": "#c9a44c"
+  },
+  "comments": {
+    "enabled": true,
+    "title": "讀者留言",
+    "intro": "讀到這裡，謝謝你。歡迎在下方留下你的想法（需要 GitHub 帳號）。"
+  },
+  "pages": [
+    "content/pages/01-toc.md",
+    "content/pages/02-chapter-1.md",
+    "content/pages/03-chapter-2.md",
+    "content/pages/04-afterword.md"
+  ]
+}
