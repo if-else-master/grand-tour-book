@@ -6,9 +6,9 @@
    若要手動設定，到 https://giscus.app 取得下列值貼上即可。 */
 const GISCUS = {
   repo: "if-else-master/grand-tour-book",
-  repoId: "__GISCUS_REPO_ID__",
+  repoId: "R_kgDOS9KEOQ",
   category: "Announcements",
-  categoryId: "__GISCUS_CATEGORY_ID__",
+  categoryId: "DIC_kwDOS9KEOc4C_Uk-",
   mapping: "specific",
   term: "讀者留言",
   theme: "light",
