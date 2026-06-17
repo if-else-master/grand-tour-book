@@ -90,7 +90,7 @@ const App = {
             <div class="cover-sub">${c.subtitle || ''}</div>
           </div>
           <div class="cover-bottom">
-            <div class="cover-author"><small>著　　者</small>${c.author || ''}</div>
+            <div class="cover-author"><small>作　　者</small>${c.author || ''}</div>
             <div class="cover-pub">${c.year || ''}</div>
           </div>
         </div>
