@@ -249,6 +249,8 @@ class FlipBook {
 
     const begin = (x, y) => {
       sx = x; sy = y; tracking = true;
+      this._touches = (this._touches || 0) + 1;
+      this._dbg = `觸控開始 #${this._touches}`;
       // 在「開始」時記錄內容是否已捲到頂／底（決定該翻頁還是讓它捲動）
       const c = this.layout === 'slide' ? this.pages[this.index]?.querySelector('.page-content') : null;
       startTop = !c || c.scrollTop <= 2;
@@ -259,6 +261,7 @@ class FlipBook {
       if (!tracking) return;
       tracking = false;
       const dx = x - sx, dy = y - sy;
+      this._dbg = `滑動 dx=${Math.round(dx)} dy=${Math.round(dy)} 頂=${startTop} 底=${startBottom}`;
       if (this.layout === 'slide') {
         if (Math.abs(dy) > this.threshold && Math.abs(dy) > Math.abs(dx)) {
           if (dy < 0 && startBottom) this.next();        // 已在底部往上滑 → 下一頁

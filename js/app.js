@@ -59,6 +59,7 @@ const App = {
     this._bindNav();
     this._bindTocLinks(bookEl);
     this._setupGuide();
+    this._setupDebug();
 
     // 6. 收掉載入畫面
     appEl.classList.remove('loading');
@@ -158,11 +159,11 @@ const App = {
     const coarse = window.matchMedia('(pointer: coarse)').matches;
     const landscape = w > h;
 
-    // 手機：觸控裝置且整體尺寸接近手機（長邊 < 980，平板長邊普遍 ≥ 1024）
-    // 平板：觸控但較大 → 橫式雙頁、直式單頁，跟電腦一樣
-    // 電腦：非觸控 → 橫式雙頁、直式/窄視窗單頁
+    // 手機：螢幕長邊 < 950（手機長邊普遍 ≤ 932，平板 ≥ 1024）。
+    //   主要看尺寸、不依賴觸控偵測，避免某些 Android 瀏覽器沒回報觸控而被當成電腦。
+    // 平板/電腦：橫式雙頁、直式單頁。
     let mode;
-    if (coarse && longSide < 980) mode = 'mobile';
+    if (longSide < 950) mode = 'mobile';
     else if (coarse) mode = 'tablet';
     else mode = 'desktop';
 
@@ -252,6 +253,25 @@ const App = {
     };
     document.getElementById('guideClose').addEventListener('click', close);
     setTimeout(close, 6000);
+  },
+
+  /* ---------- 診斷畫面：網址加 ?debug=1 即顯示 ---------- */
+  _setupDebug() {
+    if (!/[?&]debug/.test(location.search)) return;
+    const box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:999;background:rgba(0,0,0,.82);' +
+      'color:#9f9;font:12px/1.5 monospace;padding:8px 10px;white-space:pre-wrap;pointer-events:none;';
+    document.body.appendChild(box);
+    const tick = () => {
+      const w = innerWidth, h = innerHeight;
+      const coarse = matchMedia('(pointer: coarse)').matches;
+      box.textContent =
+        `螢幕 ${w}×${h}　長邊 ${Math.max(w,h)}　觸控 ${coarse}\n` +
+        `mode=${this._deviceMode}　layout=${this._layout}\n` +
+        `${(this.flip && this.flip._dbg) || '（還沒偵測到滑動，請在畫面上滑一下）'}`;
+      requestAnimationFrame(tick);
+    };
+    tick();
   }
 };
 
