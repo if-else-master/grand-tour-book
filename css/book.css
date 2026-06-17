@@ -11,29 +11,31 @@
   background: var(--paper);
   border-radius: 4px 8px 8px 4px;
   box-shadow: var(--shadow);
+  /* 固定設計尺寸 + scale 等比例縮放：所有裝置換行/行距完全一致 */
+  transform: scale(var(--scale, 1));
+  transform-origin: center center;
+  flex: 0 0 auto;   /* 不被 flex 容器壓縮，固定尺寸才能維持，靠 scale 縮放 */
 }
 
-/* ---- 書本尺寸（依版面 data-layout） ---- */
-/* 單頁翻書（直式平板 / 窄視窗）：單頁書頁比例 */
+/* ---- 書本尺寸：固定 px 設計稿（單頁 720×1008，比例 5:7） ---- */
+/* 單頁翻書（直式平板 / 窄視窗） */
 .app[data-layout="flip"] .book {
-  height: min(90vh, 92vw * 1.4);
-  width: min(64vh, 92vw);            /* 約 0.71 書頁比 */
-  aspect-ratio: 5 / 7;
+  width: 720px;
+  height: 1008px;
 }
-/* 雙頁攤開（電腦 / 橫式平板）：兩頁並排，整體 10:7 */
+/* 雙頁攤開（電腦 / 橫式平板）：兩頁並排 1440×1008 */
 .app[data-layout="spread"] .book {
-  width: min(94vw, 128vh);
-  aspect-ratio: 10 / 7;
-  max-height: 92vh;
+  width: 1440px;
+  height: 1008px;
   background: transparent;
   box-shadow: none;
   filter: drop-shadow(0 20px 45px rgba(0, 0, 0, .5));
   transition: transform .7s cubic-bezier(.3,.1,.2,1);
 }
-/* 手機：滿版滑動 */
+/* 手機滑動：固定寬 720，高度由 JS 依螢幕比例設定 */
 .app[data-layout="slide"] .book {
-  width: 100vw;
-  height: 100vh;
+  width: 720px;
+  height: var(--slide-h, 1280px);
   border-radius: 0;
   box-shadow: none;
 }
@@ -117,8 +119,8 @@
   perspective: 2800px;
   transform-style: preserve-3d;
 }
-/* 封面視圖：書本左移，讓右側單頁置中 */
-.app[data-layout="spread"].at-cover .book { transform: translateX(-25%); }
+/* 封面視圖：書本左移，讓右側單頁置中（scale 在外、translate 在內，位移才會跟著縮放） */
+.app[data-layout="spread"].at-cover .book { transform: scale(var(--scale, 1)) translateX(-25%); }
 
 /* 左右頁槽 */
 .layout-spread .spread-slot {

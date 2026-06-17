@@ -9,7 +9,7 @@
   --cover-bg: #16263f;
   --cover-text: #f4ead5;
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-  --page-pad: clamp(22px, 5vw, 64px);
+  --page-pad: 64px;
   --serif: "Noto Serif TC", "Songti TC", "STSong", Georgia, serif;
   --sans: "Noto Sans TC", "PingFang TC", "Heiti TC", system-ui, sans-serif;
 }
@@ -60,10 +60,10 @@ html, body {
 .page-content::-webkit-scrollbar { width: 7px; }
 .page-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 4px; }
 
-.page-content h1 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); margin: .2em 0 .8em; line-height: 1.25; }
-.page-content h2 { font-size: clamp(1.3rem, 3.4vw, 1.7rem); margin: 1.6em 0 .6em; color: #3b342a; }
-.page-content h3 { font-size: 1.2rem; margin: 1.3em 0 .5em; }
-.page-content p  { font-size: clamp(1rem, 2.4vw, 1.12rem); line-height: 1.95; margin: 0 0 1.1em; color: var(--ink); letter-spacing: .01em; }
+.page-content h1 { font-size: 40px; margin: .2em 0 .8em; line-height: 1.25; }
+.page-content h2 { font-size: 27px; margin: 1.6em 0 .6em; color: #3b342a; }
+.page-content h3 { font-size: 22px; margin: 1.3em 0 .5em; }
+.page-content p  { font-size: 20px; line-height: 1.95; margin: 0 0 1.1em; color: var(--ink); letter-spacing: .01em; }
 .page-content ul, .page-content ol { line-height: 1.9; padding-left: 1.4em; }
 .page-content li { margin: .35em 0; }
 .page-content a { color: #8a6a1f; text-decoration: none; border-bottom: 1px solid rgba(138,106,31,.4); }
@@ -114,13 +114,8 @@ figure.img-sm img, figure.img-md img, figure.img-lg img, figure.img-full img { w
 .img-border { border: 4px solid #fff; outline: 1px solid rgba(0,0,0,.1); }
 figure.img-shadow img, figure.img-round img { border-radius: 12px; }
 
-/* 手機上圖片不浮動，改為置中獨立區塊，避免文字擠壓 */
-@media (max-width: 600px) {
-  .img-left, .img-right { float: none; margin: 1em auto; }
-  .img-sm { width: 55%; }
-  .img-md { width: 75%; }
-  .img-lg, .img-full { width: 100%; }
-}
+/* 版面採固定設計尺寸 + 等比例縮放，圖片位置/大小在所有裝置完全一致，
+   不再依視窗寬度改變排版（保留此註解，避免日後誤加 RWD 換行規則）。 */
 
 /* ============================================================
    封面
@@ -138,23 +133,23 @@ figure.img-shadow img, figure.img-round img { border-radius: 12px; }
   position: relative; z-index: 2;
   height: 100%;
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: clamp(32px, 7vw, 70px) clamp(28px, 6vw, 60px);
+  padding: 64px 56px;
   background: linear-gradient(180deg, rgba(10,18,30,.35) 0%, rgba(10,18,30,.05) 40%, rgba(10,18,30,.65) 100%);
 }
 .cover-top { text-align: center; }
-.cover-kicker { letter-spacing: .5em; font-size: .8rem; opacity: .8; text-transform: uppercase; }
+.cover-kicker { letter-spacing: .5em; font-size: 13px; opacity: .8; text-transform: uppercase; }
 .cover-title {
-  font-size: clamp(1.8rem, 7.5vw, 3.6rem);
+  font-size: 60px;
   margin: .25em 0 .15em; font-weight: 700;
-  letter-spacing: .12em; line-height: 1;
+  letter-spacing: .12em; line-height: 1.15;
   text-shadow: 0 4px 24px rgba(0,0,0,.5);
 }
-.cover-sub { font-size: clamp(1rem, 3.2vw, 1.4rem); opacity: .92; font-style: italic; }
+.cover-sub { font-size: 22px; opacity: .92; font-style: italic; }
 .cover-rule { width: 60px; height: 2px; background: var(--accent); margin: 1.2em auto; }
 .cover-bottom { text-align: center; }
-.cover-author { font-size: clamp(1.1rem, 3.4vw, 1.5rem); letter-spacing: .15em; }
-.cover-author small { display: block; font-size: .7rem; letter-spacing: .3em; opacity: .7; margin-bottom: .5em; }
-.cover-pub { font-size: .75rem; letter-spacing: .25em; opacity: .65; margin-top: 2em; }
+.cover-author { font-size: 24px; letter-spacing: .15em; }
+.cover-author small { display: block; font-size: 12px; letter-spacing: .3em; opacity: .7; margin-bottom: .5em; }
+.cover-pub { font-size: 12px; letter-spacing: .25em; opacity: .65; margin-top: 2em; }
 
 /* ============================================================
    留言頁（giscus）

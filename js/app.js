@@ -172,9 +172,36 @@ const App = {
     appEl.dataset.mode = mode;
     appEl.dataset.orient = landscape ? 'landscape' : 'portrait';
 
-    if (this.flip) this.flip.setLayout(layout);
     this._deviceMode = mode;
     this._layout = layout;
+    if (this.flip) this.flip.setLayout(layout);
+    this._applyScale();
+  },
+
+  /* 依螢幕大小，把固定尺寸的書本等比例縮放（換行/行距永遠不變） */
+  _applyScale() {
+    const book = this.flip && this.flip.book;
+    if (!book) return;
+    const W = window.innerWidth, H = window.innerHeight;
+    let scale;
+    if (this._layout === 'slide') {
+      scale = W / 720;                                   // 固定設計寬 720
+      book.style.setProperty('--slide-h', Math.round(H / scale) + 'px');
+    } else if (this._layout === 'spread') {
+      scale = Math.min((W * 0.98) / 1440, (H * 0.96) / 1008);
+    } else {
+      scale = Math.min((W * 0.96) / 720, (H * 0.96) / 1008);
+    }
+    // 首次套用時關掉過場動畫，避免載入瞬間的縮放跳動
+    if (!this._scaledOnce) {
+      book.style.transition = 'none';
+      book.style.setProperty('--scale', scale);
+      void book.offsetWidth;
+      book.style.transition = '';
+      this._scaledOnce = true;
+    } else {
+      book.style.setProperty('--scale', scale);
+    }
   },
 
   /* ---------- 導覽 ---------- */
