@@ -240,21 +240,29 @@ class FlipBook {
     setTimeout(() => { if (this.animating) handler(); }, fallback);
   }
 
-  /* ---------- 手勢 ---------- */
+  /* ---------- 手勢 ----------
+     用 Touch Events 偵測觸控滑動（Android 上比 Pointer Events 可靠：
+     瀏覽器把觸控判定為捲動時會送出 pointercancel 中斷追蹤，touchend 則照常觸發）。
+     滑鼠 / 觸控筆走 Pointer Events。 */
   _bindGestures() {
-    let sx = 0, sy = 0, tracking = false;
-    const start = (x, y) => { sx = x; sy = y; tracking = true; };
-    const end = (x, y) => {
+    let sx = 0, sy = 0, tracking = false, startTop = true, startBottom = true;
+
+    const begin = (x, y) => {
+      sx = x; sy = y; tracking = true;
+      // 在「開始」時記錄內容是否已捲到頂／底（決定該翻頁還是讓它捲動）
+      const c = this.layout === 'slide' ? this.pages[this.index]?.querySelector('.page-content') : null;
+      startTop = !c || c.scrollTop <= 2;
+      startBottom = !c || (c.scrollTop + c.clientHeight >= c.scrollHeight - 2);
+    };
+
+    const finish = (x, y) => {
       if (!tracking) return;
       tracking = false;
       const dx = x - sx, dy = y - sy;
       if (this.layout === 'slide') {
         if (Math.abs(dy) > this.threshold && Math.abs(dy) > Math.abs(dx)) {
-          const content = this.pages[this.index]?.querySelector('.page-content');
-          const atTop = !content || content.scrollTop <= 2;
-          const atBottom = !content || (content.scrollTop + content.clientHeight >= content.scrollHeight - 2);
-          if (dy < 0 && atBottom) this.next();
-          else if (dy > 0 && atTop) this.prev();
+          if (dy < 0 && startBottom) this.next();        // 已在底部往上滑 → 下一頁
+          else if (dy > 0 && startTop) this.prev();       // 已在頂部往下滑 → 上一頁
         }
       } else {
         if (Math.abs(dx) > this.threshold && Math.abs(dx) > Math.abs(dy)) {
@@ -262,10 +270,21 @@ class FlipBook {
         }
       }
     };
-    this.stage.addEventListener('pointerdown', e => start(e.clientX, e.clientY));
-    this.stage.addEventListener('pointerup',   e => end(e.clientX, e.clientY));
-    this.stage.addEventListener('pointercancel', () => { tracking = false; });
 
+    // 觸控（手機 / 平板）
+    this.stage.addEventListener('touchstart', e => {
+      const t = e.touches[0]; if (t) begin(t.clientX, t.clientY);
+    }, { passive: true });
+    this.stage.addEventListener('touchend', e => {
+      const t = e.changedTouches[0]; if (t) finish(t.clientX, t.clientY);
+    }, { passive: true });
+    this.stage.addEventListener('touchcancel', () => { tracking = false; });
+
+    // 滑鼠 / 觸控筆（觸控已由上面處理，避免重複）
+    this.stage.addEventListener('pointerdown', e => { if (e.pointerType !== 'touch') begin(e.clientX, e.clientY); });
+    this.stage.addEventListener('pointerup',   e => { if (e.pointerType !== 'touch') finish(e.clientX, e.clientY); });
+
+    // 滑鼠橫向滾輪翻頁
     let wheelLock = false;
     this.stage.addEventListener('wheel', e => {
       if (this.layout === 'slide') return;
