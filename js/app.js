@@ -196,6 +196,8 @@ const App = {
     } else {
       scale = Math.min((W * 0.96) / 720, (H * 0.96) / 1008);
     }
+    // 上限 1.0：永不放大，避免在低解析(非 Retina)大螢幕上被 transform 放大而模糊
+    scale = Math.min(scale, 1);
     // 首次套用時關掉過場動畫，避免載入瞬間的縮放跳動
     if (!this._scaledOnce) {
       book.style.transition = 'none';

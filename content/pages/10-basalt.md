@@ -3,8 +3,8 @@
 # 小門鯨魚洞<small>玄武岩與仙人掌</small>
 
 <figure class="img-center img-lg img-round img-shadow">
-  <img src="images/penghu/basalt-coast.jpg" alt="澎湖的玄武岩海岸">
-  <figcaption>柱狀玄武岩，是澎湖無所不在的地景</figcaption>
+  <img src="images/penghu/whale-cave-arch.jpg" alt="小門鯨魚洞">
+  <figcaption>小門鯨魚洞——海蝕而成的玄武岩拱門</figcaption>
 </figure>
 
 <p class="pb-lead">澎湖無所不在的玄武岩，柱狀岩石聳立，周圍被仙人掌包圍。</p>
