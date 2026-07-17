@@ -4,3 +4,7 @@
 
 # 系統檔
 .DS_Store
+
+# 原始素材（含數 GB 影片）與來源文件，不上傳；只上傳 images/penghu/ 的優化照片
+images/澎湖素材/
+*.pdf

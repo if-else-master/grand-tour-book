@@ -1,11 +1,11 @@
 {
   "title": "三個自然組的旅行",
-  "subtitle": "一場關於成長與遠方的旅程",
+  "subtitle": "被大海包圍的旅行日誌 · 澎湖篇",
   "author": "陳奐禹 蔡睿璟 張靖杭",
   "publisher": "Nature³",
   "year": "2026",
   "cover": {
-    "image": "images/cover.svg",
+    "image": "images/penghu/sea-hero.jpg",
     "bgColor": "#16263f",
     "textColor": "#f4ead5",
     "accentColor": "#c9a44c"
@@ -16,9 +16,19 @@
     "intro": "讀到這裡，謝謝你。歡迎在下方留下你的想法（需要 GitHub 帳號）。"
   },
   "pages": [
+    "content/pages/00-preface.md",
     "content/pages/01-toc.md",
-    "content/pages/02-chapter-1.md",
-    "content/pages/03-chapter-2.md",
-    "content/pages/04-afterword.md"
+    "content/pages/02-opener.md",
+    "content/pages/03-zhongyang.md",
+    "content/pages/04-seaglass.md",
+    "content/pages/05-print.md",
+    "content/pages/06-gate.md",
+    "content/pages/07-pananbang.md",
+    "content/pages/08-shanshui.md",
+    "content/pages/09-aimen.md",
+    "content/pages/10-basalt.md",
+    "content/pages/11-tongliang.md",
+    "content/pages/12-fireworks.md",
+    "content/pages/13-afterword.md"
   ]
 }
