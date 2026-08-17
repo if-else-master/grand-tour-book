@@ -2,8 +2,8 @@
 
 # 外婆的澎湖灣<small>篤行十村 · 潘安邦</small>
 
-<figure class="img-right img-md img-round img-shadow">
-  <img src="images/penghu/pananbang.jpg" alt="潘安邦紀念展">
+<figure class="img-right img-md img-shadow">
+  <img src="images/penghu/pananbang.jpg" alt="潘安邦紀念展" width="960" height="1280">
   <figcaption>記憶中，外婆的澎湖灣</figcaption>
 </figure>
 
@@ -13,4 +13,4 @@
 
 在銅像前，我們真的看到了陽光、沙灘、海浪、仙人掌；或許真的有老船長經過，但被閃爍海面吸引目光的我們，忽略了呢。
 
-<span class="pb-tag">延伸議題 · 潘安邦 · 篤行十村</span>
+<p class="pb-quote">「晚風輕拂澎湖灣，<br>白浪逐沙灘……」</p>

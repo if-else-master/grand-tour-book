@@ -51,14 +51,15 @@ html, body {
 .page-content {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;              /* 一頁顯示完，不允許捲動 */
   padding: var(--page-pad);
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
 }
-.page-content::-webkit-scrollbar { width: 7px; }
-.page-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 4px; }
+/* 兩張照片並排（填滿頁面用） */
+.img-row { display: flex; gap: 14px; margin: 1.3em 0; clear: both; }
+.img-row figure { margin: 0; flex: 1 1 0; min-width: 0; }
+.img-row figure img { width: 100%; }
+/* 留言頁例外：giscus 可能較長，允許捲動 */
+.comments-page .page-content { overflow-y: auto; }
 
 .page-content h1 { font-size: 40px; margin: .2em 0 .8em; line-height: 1.25; }
 .page-content h2 { font-size: 27px; margin: 1.6em 0 .6em; color: #3b342a; }
@@ -77,9 +78,9 @@ html, body {
 .signature { text-align: right; font-style: italic; color: var(--ink-soft); margin-top: 2.5em; }
 
 /* ---------- 目錄 ---------- */
-.toc { font-size: 1.15rem; }
+.toc { font-size: 1.2rem; }
 .toc ul { list-style: none; padding: 0; }
-.toc li { margin: .8em 0; border-bottom: 1px dashed rgba(0,0,0,.18); padding-bottom: .6em; }
+.toc li { margin: .82em 0; border-bottom: 1px dashed rgba(0,0,0,.18); padding-bottom: .58em; }
 .toc a { border: none; color: var(--ink); font-weight: 500; }
 .toc a:hover { color: var(--accent); }
 .toc-note { margin-top: 2.5em; font-size: .9rem; color: var(--ink-soft); }
@@ -110,9 +111,10 @@ figure.img-sm img, figure.img-md img, figure.img-lg img, figure.img-full img { w
 
 /* 樣式 */
 .img-shadow { box-shadow: 0 8px 22px rgba(0,0,0,.22); }
-.img-round  { border-radius: 12px; overflow: hidden; }
+.img-round  { border-radius: 0; }            /* 不使用圓角 */
 .img-border { border: 4px solid #fff; outline: 1px solid rgba(0,0,0,.1); }
-figure.img-shadow img, figure.img-round img { border-radius: 12px; }
+.page-content img, .page-content figure,
+figure.img-shadow img, figure.img-round img { border-radius: 0; }
 
 /* 版面採固定設計尺寸 + 等比例縮放，圖片位置/大小在所有裝置完全一致，
    不再依視窗寬度改變排版（保留此註解，避免日後誤加 RWD 換行規則）。 */
@@ -196,8 +198,8 @@ figure.img-shadow img, figure.img-round img { border-radius: 12px; }
 /* 全出血主視覺（章名頁） */
 .pb-hero {
   position: relative;
-  margin: calc(var(--page-pad) * -1) calc(var(--page-pad) * -1) 1.6em;
-  height: 540px; overflow: hidden;
+  margin: calc(var(--page-pad) * -1) calc(var(--page-pad) * -1) 1.4em;
+  height: 500px; overflow: hidden;
 }
 .pb-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pb-hero-txt {

@@ -104,7 +104,7 @@ const App = {
     const el = document.createElement('div');
     el.className = 'page';
     const html = window.marked ? marked.parse(md) : md;
-    el.innerHTML = `<div class="page-content">${html}</div>`;
+    el.innerHTML = `<div class="page-content"><div class="pc-fit">${html}</div></div>`;
     return el;
   },
 

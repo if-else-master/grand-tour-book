@@ -2,8 +2,8 @@
 
 # 旅程，未完
 
-<figure class="img-center img-lg img-round img-shadow">
-  <img src="images/penghu/group-coast.jpg" alt="三個自然組在澎湖海岸">
+<figure class="img-center img-full img-shadow">
+  <img src="images/penghu/group-coast.jpg" alt="三個自然組在澎湖海岸" width="1600" height="900">
   <figcaption>三個自然組 · 澎湖</figcaption>
 </figure>
 
