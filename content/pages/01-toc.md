@@ -2,18 +2,34 @@
 
 # 目錄
 
-<div class="toc">
-
-- [澎湖，被大海包圍](#page-3)
-- [中央街　海島風情的小店](#page-4)
-- [海玻璃　把海廢變成禮物](#page-5)
-- [西河印刷廠　鉛字裡的時光](#page-6)
-- [順承門　登城眺望，海天一色](#page-7)
-- [外婆的澎湖灣　篤行十村](#page-8)
-- [山水沙灘　夕陽落於海平面](#page-9)
-- [退潮　海底的珊瑚與貝殼](#page-10)
-- [小門鯨魚洞　玄武岩與仙人掌](#page-11)
-- [跨海大橋　通樑的攤販與特產](#page-12)
-- [澎湖花火節　萬家燈火](#page-13)
-
+<div class="toc-cols">
+  <div class="toc-col">
+    <div class="toc-chap">澎湖篇</div>
+    <ul>
+      <li><a href="#page-3">澎湖，被大海包圍</a></li>
+      <li><a href="#page-4">中央街</a></li>
+      <li><a href="#page-5">海玻璃</a></li>
+      <li><a href="#page-6">西河印刷廠</a></li>
+      <li><a href="#page-7">順承門</a></li>
+      <li><a href="#page-8">外婆的澎湖灣</a></li>
+      <li><a href="#page-9">山水沙灘</a></li>
+      <li><a href="#page-10">退潮</a></li>
+      <li><a href="#page-11">小門鯨魚洞</a></li>
+      <li><a href="#page-12">跨海大橋</a></li>
+      <li><a href="#page-13">澎湖花火節</a></li>
+    </ul>
+  </div>
+  <div class="toc-col">
+    <div class="toc-chap">小琉球篇</div>
+    <ul>
+      <li><a href="#page-15">小琉球，珊瑚礁島</a></li>
+      <li><a href="#page-16">花瓶岩</a></li>
+      <li><a href="#page-17">烏鬼洞</a></li>
+      <li><a href="#page-18">海龜的標誌</a></li>
+      <li><a href="#page-19">山豬溝</a></li>
+      <li><a href="#page-20">浮潛</a></li>
+      <li><a href="#page-21">市場</a></li>
+      <li><a href="#page-22">島嶼的步調</a></li>
+    </ul>
+  </div>
 </div>

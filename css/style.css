@@ -85,6 +85,22 @@ html, body {
 .toc a:hover { color: var(--accent); }
 .toc-note { margin-top: 2.5em; font-size: .9rem; color: var(--ink-soft); }
 
+/* 兩篇並排目錄 */
+.toc-cols { display: flex; gap: 38px; margin-top: .5em; }
+.toc-col { flex: 1 1 0; min-width: 0; }
+.toc-chap {
+  font-family: var(--sans); font-size: 15px; letter-spacing: .22em;
+  color: var(--accent); margin: 0 0 .7em; padding-bottom: .4em;
+  border-bottom: 2px solid rgba(201,164,76,.45);
+}
+.toc-cols ul { list-style: none; padding: 0; margin: 0; }
+.toc-cols li {
+  margin: .92em 0; padding-bottom: .62em;
+  border-bottom: 1px dashed rgba(0,0,0,.15); font-size: 1.05rem;
+}
+.toc-cols a { border: none; color: var(--ink); font-weight: 500; }
+.toc-cols a:hover { color: var(--accent); }
+
 /* ============================================================
    圖片定位（可複製貼上使用，class 可組合）
    位置: img-left / img-right / img-center

@@ -13,7 +13,7 @@
   "comments": {
     "enabled": true,
     "title": "讀者留言",
-    "intro": "讀到這裡，謝謝你。歡迎在下方留下你的想法（需要 GitHub 帳號）。"
+    "intro": "讀到這裡，謝謝你。歡迎在下方留下你的想法。<br>（需要 GitHub 帳號）"
   },
   "pages": [
     "content/pages/00-preface.md",
@@ -29,6 +29,14 @@
     "content/pages/10-basalt.md",
     "content/pages/11-tongliang.md",
     "content/pages/12-fireworks.md",
-    "content/pages/13-afterword.md"
+    "content/pages/13-afterword.md",
+    "content/pages/14-xlq-opener.md",
+    "content/pages/15-xlq-huaping.md",
+    "content/pages/16-xlq-wugui.md",
+    "content/pages/17-xlq-turtle.md",
+    "content/pages/18-xlq-shanzhu.md",
+    "content/pages/19-xlq-snorkel.md",
+    "content/pages/20-xlq-market.md",
+    "content/pages/21-xlq-farewell.md"
   ]
 }
