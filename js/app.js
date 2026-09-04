@@ -25,7 +25,7 @@ const App = {
     const stageEl = document.getElementById('stage');
 
     // 1. 讀取書本設定
-    this.config = await fetch('content/book.json').then(r => r.json());
+    this.config = await fetch('content/book.json', { cache: 'no-cache' }).then(r => r.json());
     document.title = this.config.title || '書';
     this._applyCoverVars();
 
@@ -41,7 +41,7 @@ const App = {
 
     const mdTexts = await Promise.all(
       (this.config.pages || []).map(p =>
-        fetch(p).then(r => r.ok ? r.text() : `# 找不到頁面\n\n\`${p}\``)
+        fetch(p, { cache: 'no-cache' }).then(r => r.ok ? r.text() : `# 找不到頁面\n\n\`${p}\``)
       )
     );
     mdTexts.forEach(md => pages.push(this._buildContentPage(md)));
