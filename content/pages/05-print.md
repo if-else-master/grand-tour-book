@@ -3,7 +3,7 @@
 # 西河印刷廠<small>鉛字裡的時光</small>
 
 <figure class="img-right img-md img-shadow">
-  <img src="images/penghu/print-type.jpg" alt="一格一格的鉛字" width="1600" height="1200">
+  <img src="images/penghu/print-type.jpg" alt="鉛字架上一格一格的4號鉛字與說明牌" width="1600" height="1200">
   <figcaption>五、六十年來真實使用的鉛字</figcaption>
 </figure>
 
