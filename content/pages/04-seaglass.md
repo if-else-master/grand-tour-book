@@ -3,7 +3,7 @@
 # 海玻璃<small>把海廢變成禮物</small>
 
 <figure class="img-right img-md img-shadow">
-  <img src="images/penghu/craft-shop.jpg" alt="店家把海廢做成手作" width="1200" height="1600">
+  <img src="images/penghu/seaglass-art.jpg" alt="店家在海玻璃上彩繪的手作紀念品" width="1200" height="1600">
   <figcaption>店家把海廢化為手作紀念品</figcaption>
 </figure>
 
